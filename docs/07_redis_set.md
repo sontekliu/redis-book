@@ -157,3 +157,30 @@
 2) "go"
 3) "python"
 ```
+
+#### 12. sinterstore/sunionstore/sdiffstore dest KEY1 KEY2 ...
+
+将集合 KEY1 与集合 KEY2 ... KEYN 的交集/并集/差集 存储到 dest 集合中。
+
+```shell
+127.0.0.1:6379> sunionstore dev web back
+(integer) 7
+127.0.0.1:6379> smembers dev
+1) "nodejs"
+2) "js"
+3) "html"
+4) "java"
+5) "go"
+6) "python"
+7) "css"
+```
+
+
+
+
+
+
+
+
+
+
