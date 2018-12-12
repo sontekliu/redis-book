@@ -17,14 +17,3 @@
 | 11   | renamenx key1 newKey | 给 key 重命名，如果newKey已存在则重命名失败，返回0，否则返回1    |            |
 | 12   | move key DBNO      | 将指定的key移动到指定的数据库，redis默认16个库，默认使用 0号库     |            |
 | 13   | select DBNO        | 使用 redis 的某个数据库，类似于 mysql 的 use dbname            |            |
-
-#### 2. String
-
-#### 3. hash
-
-#### 4. list 
-
-#### 5. set
-
-#### 6. sorted set 
-
