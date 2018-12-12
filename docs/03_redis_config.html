@@ -1,0 +1,479 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Redis-简单配置 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="04_redis_command.html" />
+    
+    
+    <link rel="prev" href="02_redis_install.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="01_redis_intro.html">
+            
+                <a href="01_redis_intro.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="02_redis_install.html">
+            
+                <a href="02_redis_install.html">
+            
+                    
+                    Redis-安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="03_redis_config.html">
+            
+                <a href="03_redis_config.html">
+            
+                    
+                    Redis-简单配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="04_redis_command.html">
+            
+                <a href="04_redis_command.html">
+            
+                    
+                    Redis-通用命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="05_redis_string.html">
+            
+                <a href="05_redis_string.html">
+            
+                    
+                    Redis-字符串命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="06_redis_list.html">
+            
+                <a href="06_redis_list.html">
+            
+                    
+                    Redis-列表命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="07_redis_set.html">
+            
+                <a href="07_redis_set.html">
+            
+                    
+                    Redis-集合命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    未完待续...
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../article-index.html">
+            
+                <a href="../article-index.html">
+            
+                    
+                    聊聊 Redis 
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../Redis-Key-Design.html">
+            
+                <a href="../Redis-Key-Design.html">
+            
+                    
+                    聊聊 Redis 之 Key 的设计技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" >
+            
+                <span>
+            
+                    
+                    未完待续...
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Redis-简单配置</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="redis-&#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#x7684;&#x57FA;&#x672C;&#x914D;&#x7F6E;">Redis &#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#x7684;&#x57FA;&#x672C;&#x914D;&#x7F6E;</h1>
+<h4 id="1-&#x4F7F;-redis-&#x5DF2;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x5F0F;&#x542F;&#x52A8;">1. &#x4F7F; Redis &#x5DF2;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x5F0F;&#x542F;&#x52A8;</h4>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/usr/local/redis/etc/redis.conf</code> &#x505A;&#x5982;&#x4E0B;&#x4FEE;&#x6539;&#xFF1A;</p>
+<pre><code class="lang-shell">daemonize no  --&gt; daemonize yes
+</code></pre>
+<h4 id="2-&#x6CE8;&#x91CA;-redis-&#x7ED1;&#x5B9A;&#x8FDE;&#x63A5;">2. &#x6CE8;&#x91CA; Redis &#x7ED1;&#x5B9A;&#x8FDE;&#x63A5;</h4>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/usr/local/redis/etc/redis.conf</code>&#xFF0C;&#x627E;&#x5230;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF0C;&#x5C06;&#x5176;&#x6CE8;&#x91CA;&#x6389;&#x5373;&#x53EF;&#xFF0C;&#x6216;&#x8005;&#x914D;&#x7F6E;&#x6307;&#x5B9A;&#x5BA2;&#x6237;&#x7AEF; IP </p>
+<pre><code class="lang-shell">#bind 127.0.0.1
+#protected-mode yes
+</code></pre>
+<h4 id="3-&#x8BBE;&#x7F6E;&#x5BC6;&#x7801;">3. &#x8BBE;&#x7F6E;&#x5BC6;&#x7801;</h4>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/usr/local/redis/etc/redis.conf</code>&#xFF0C;&#x627E;&#x5230;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF0C;&#x505A;&#x5982;&#x4E0B;&#x4FEE;&#x6539;&#xFF1A;</p>
+<pre><code class="lang-shell">requirepass 123456
+</code></pre>
+<h4 id="4-&#x4FEE;&#x6539;-redis-&#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;">4. &#x4FEE;&#x6539; Redis &#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;</h4>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/usr/local/redis/etc/redis.conf</code>&#xFF0C;&#x627E;&#x5230;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF0C;&#x4FEE;&#x6539;&#x6210;&#x7CFB;&#x7EDF;&#x672A;&#x4F7F;&#x7528;&#x7684;&#x7AEF;&#x53E3;&#x5373;&#x53EF;&#xFF1A;</p>
+<pre><code class="lang-shell">port 6379
+</code></pre>
+<h4 id="5-&#x4FEE;&#x6539;-redis-&#x8FDB;&#x7A0B;&#x6587;&#x4EF6;">5. &#x4FEE;&#x6539; Redis &#x8FDB;&#x7A0B;&#x6587;&#x4EF6;</h4>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/usr/local/redis/etc/redis.conf</code>&#xFF0C;&#x627E;&#x5230;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF0C;&#x4FEE;&#x6539;&#x8FDB;&#x7A0B;&#x6587;&#x4EF6;&#x7684;&#x4F4D;&#x7F6E;</p>
+<pre><code class="lang-shell">pidfile /usr/local/redis/data/redis_6379.pid
+</code></pre>
+<h4 id="6-&#x5B58;&#x50A8;&#x672C;&#x5730;&#x6570;&#x636E;&#x5E93;&#x65F6;&#xFF0C;&#x662F;&#x5426;&#x538B;&#x7F29;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;-yes">6. &#x5B58;&#x50A8;&#x672C;&#x5730;&#x6570;&#x636E;&#x5E93;&#x65F6;&#xFF0C;&#x662F;&#x5426;&#x538B;&#x7F29;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A; yes</h4>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/usr/local/redis/etc/redis.conf</code>&#xFF0C;&#x627E;&#x5230;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;</p>
+<pre><code class="lang-shell">rdbcompression yes
+</code></pre>
+<h4 id="7-rdb-&#x5B58;&#x50A8;&#x6587;&#x4EF6;&#x7684;&#x540D;&#x79F0;">7. RDB &#x5B58;&#x50A8;&#x6587;&#x4EF6;&#x7684;&#x540D;&#x79F0;</h4>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/usr/local/redis/etc/redis.conf</code>&#xFF0C;&#x627E;&#x5230;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;</p>
+<pre><code class="lang-shell">dbfilename  redis-6379.rdb
+</code></pre>
+<h4 id="8-rdb-&#x6570;&#x636E;&#x6587;&#x4EF6;&#x7684;&#x5B58;&#x50A8;&#x4F4D;&#x7F6E;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;-&#xFF0C;&#x6CE8;&#x610F;&#x6B64;&#x5904;&#x662F;&#x76EE;&#x5F55;&#xFF0C;&#x4E0D;&#x662F;&#x6587;&#x4EF6;">8. RDB &#x6570;&#x636E;&#x6587;&#x4EF6;&#x7684;&#x5B58;&#x50A8;&#x4F4D;&#x7F6E;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A; <code>./</code>&#xFF0C;&#x6CE8;&#x610F;&#x6B64;&#x5904;&#x662F;&#x76EE;&#x5F55;&#xFF0C;&#x4E0D;&#x662F;&#x6587;&#x4EF6;</h4>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/usr/local/redis/etc/redis.conf</code>&#xFF0C;&#x627E;&#x5230;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF0C;&#x4FEE;&#x6539;&#x4E3A;&#xFF1A;</p>
+<pre><code class="lang-shell">dir /usr/local/redis/data/
+</code></pre>
+<h4 id="9-&#x8BBE;&#x7F6E;-redis-&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF0C;&#x6CE8;&#x610F;&#x6B64;&#x5904;&#x662F;&#x6587;&#x4EF6;&#xFF0C;&#x4E0D;&#x662F;&#x76EE;&#x5F55;">9. &#x8BBE;&#x7F6E; Redis &#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF0C;&#x6CE8;&#x610F;&#x6B64;&#x5904;&#x662F;&#x6587;&#x4EF6;&#xFF0C;&#x4E0D;&#x662F;&#x76EE;&#x5F55;</h4>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/usr/local/redis/etc/redis.conf</code>&#xFF0C;&#x627E;&#x5230;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;</p>
+<pre><code class="lang-shell">logfile &quot;&quot;
+</code></pre>
+<p>&#x9ED8;&#x8BA4;&#x4E3A; stdout &#x6807;&#x51C6;&#x8F93;&#x51FA;&#xFF0C;&#x82E5;&#x540E;&#x53F0;&#x6A21;&#x5F0F;&#x542F;&#x52A8;&#x5219;&#x4F1A;&#x8F93;&#x51FA;&#x5230; <code>/dev/null</code> &#x4E2D;&#xFF0C;&#x4FEE;&#x6539;&#x540E;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-shell">logfile /usr/local/redis/log/redis-6379.log
+</code></pre>
+<p>&#x4EE5;&#x4E0A;&#x5747;&#x662F;&#x5B89;&#x88C5;&#x5B8C; Redis &#x4E4B;&#x540E;&#x4FEE;&#x6539;&#x7684;&#x4E00;&#x4E9B;&#x7B80;&#x5355;&#x914D;&#x7F6E;&#xFF0C;Redis &#x7684;&#x914D;&#x7F6E;&#x53EF;&#x4EE5;&#x4FEE;&#x6539; <code>redis.conf</code> &#x6587;&#x4EF6;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>config</code> &#x547D;&#x4EE4;&#x5B9E;&#x73B0;&#x3002;</p>
+<pre><code class="lang-shell">    # &#x67E5;&#x770B;&#x914D;&#x7F6E;&#x9879;                                                                                                                 
+    redis 127.0.0.1:6379&gt; config get loglevel                                                                               
+    # &#x67E5;&#x770B;&#x6240;&#x6709;&#x914D;&#x7F6E;&#x9879;                                                                                                               
+    redis 127.0.0.1:6379&gt; config get *                                                                                      
+    # &#x8BBE;&#x7F6E;&#x914D;&#x7F6E;&#x9879;                                                                                                                 
+    redis 127.0.0.1:6379&gt; config set loglevel &quot;notice&quot;                                                                      
+    OK
+</code></pre>
+<h4 id="11-redisconf-&#x914D;&#x7F6E;&#x53C2;&#x6570;&#x8BF4;&#x660E;">11. Redis.conf &#x914D;&#x7F6E;&#x53C2;&#x6570;&#x8BF4;&#x660E;</h4>
+<table>
+<thead>
+<tr>
+<th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+<th>&#x503C;</th>
+<th>&#x8BF4;&#x660E;                                                                          </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bind</td>
+<td>127.0.0.1</td>
+<td>&#x7ED1;&#x5B9A;&#x7684;&#x4E3B;&#x673A;&#x5730;&#x5740;                                                                    </td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>300</td>
+<td>&#x5BA2;&#x6237;&#x7AEF;&#x95F2;&#x7F6E;&#x591A;&#x4E45;&#x540E;&#x5173;&#x95ED;&#x94FE;&#x63A5;&#xFF0C;0:&#x8868;&#x793A;&#x5173;&#x95ED;&#x8BE5;&#x529F;&#x80FD;                                                     </td>
+</tr>
+<tr>
+<td>loglevel</td>
+<td>debug/verbose/notice/warning</td>
+<td>&#x65E5;&#x5FD7;&#x7EA7;&#x522B;                                                                       </td>
+</tr>
+<tr>
+<td>database</td>
+<td>10</td>
+<td>&#x6570;&#x636E;&#x5E93;&#x6570;&#x91CF;                                                                      </td>
+</tr>
+<tr>
+<td>save</td>
+<td>\<seconds\> \<changes\></changes\></seconds\></td>
+<td>save 900 10 &#x8868;&#x793A;&#x6307;&#x5B9A;&#x591A;&#x4E45;&#x5185;&#x6709;&#x591A;&#x5C11;&#x6B21;&#x66F4;&#x65B0;&#x5C31;&#x5C06;&#x6570;&#x636E;&#x540C;&#x6B65;&#x5230;&#x6570;&#x636E;&#x6587;&#x4EF6;                                   </td>
+</tr>
+<tr>
+<td>slaveof</td>
+<td>\<masterip\> \<masterport\></masterport\></masterip\></td>
+<td>&#x5F53;&#x672C;&#x673A;&#x4E3A;slaveof&#x65F6;&#xFF0C;&#x8BBE;&#x7F6E;master&#x7684;ip&#x548C;port&#xFF0C;redis&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x81EA;&#x52A8;&#x4ECE;master&#x4E0A;&#x6570;&#x636E;&#x540C;&#x6B65;</td>
+</tr>
+<tr>
+<td>masterauth</td>
+<td>\<master-password\></master-password\></td>
+<td>&#x5982;&#x679C;master&#x8BBE;&#x7F6E;&#x4E86;&#x5BC6;&#x7801;&#xFF0C;slav&#x94FE;&#x63A5;master&#x7684;&#x5BC6;&#x7801;          </td>
+</tr>
+</tbody>
+</table>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="02_redis_install.html" class="navigation navigation-prev " aria-label="Previous page: Redis-安装">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="04_redis_command.html" class="navigation navigation-next " aria-label="Next page: Redis-通用命令">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redis-简单配置","level":"1.4","depth":1,"next":{"title":"Redis-通用命令","level":"1.5","depth":1,"path":"docs/04_redis_command.md","ref":"./docs/04_redis_command.md","articles":[]},"previous":{"title":"Redis-安装","level":"1.3","depth":1,"path":"docs/02_redis_install.md","ref":"./docs/02_redis_install.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/03_redis_config.md","mtime":"2018-12-07T14:27:39.244Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-12T13:30:37.038Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
