@@ -11,6 +11,8 @@ git clean -df >> /dev/null
 echo "_book" >> .gitignore
 
 echo "copy static file and commit ..."
+cp -r _book/* .
+rm -rf deploy.sh
 git add .
 git commit -m "publish book"
 git push origin gh-pages:gh-pages
