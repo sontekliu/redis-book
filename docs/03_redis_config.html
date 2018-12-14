@@ -193,7 +193,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" >
+        <li class="chapter " data-level="1.9" data-path="08_redis_order_set.html">
+            
+                <a href="08_redis_order_set.html">
+            
+                    
+                    Redis-有序集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
             
                 <span>
             
@@ -206,7 +219,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="../article-index.html">
+        <li class="chapter " data-level="1.11" data-path="../article-index.html">
             
                 <a href="../article-index.html">
             
@@ -220,7 +233,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../Redis-Key-Design.html">
+        <li class="chapter " data-level="1.11.1" data-path="../Redis-Key-Design.html">
             
                 <a href="../Redis-Key-Design.html">
             
@@ -233,7 +246,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" >
+        <li class="chapter " data-level="1.11.2" >
             
                 <span>
             
@@ -338,58 +351,58 @@
 <pre><code class="lang-shell">logfile /usr/local/redis/log/redis-6379.log
 </code></pre>
 <p>&#x4EE5;&#x4E0A;&#x5747;&#x662F;&#x5B89;&#x88C5;&#x5B8C; Redis &#x4E4B;&#x540E;&#x4FEE;&#x6539;&#x7684;&#x4E00;&#x4E9B;&#x7B80;&#x5355;&#x914D;&#x7F6E;&#xFF0C;Redis &#x7684;&#x914D;&#x7F6E;&#x53EF;&#x4EE5;&#x4FEE;&#x6539; <code>redis.conf</code> &#x6587;&#x4EF6;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>config</code> &#x547D;&#x4EE4;&#x5B9E;&#x73B0;&#x3002;</p>
-<pre><code class="lang-shell">    # &#x67E5;&#x770B;&#x914D;&#x7F6E;&#x9879;                                                                                                                 
-    redis 127.0.0.1:6379&gt; config get loglevel                                                                               
-    # &#x67E5;&#x770B;&#x6240;&#x6709;&#x914D;&#x7F6E;&#x9879;                                                                                                               
-    redis 127.0.0.1:6379&gt; config get *                                                                                      
-    # &#x8BBE;&#x7F6E;&#x914D;&#x7F6E;&#x9879;                                                                                                                 
-    redis 127.0.0.1:6379&gt; config set loglevel &quot;notice&quot;                                                                      
-    OK
+<pre><code class="lang-shell"># &#x67E5;&#x770B;&#x914D;&#x7F6E;&#x9879;
+redis 127.0.0.1:6379&gt; config get loglevel
+# &#x67E5;&#x770B;&#x6240;&#x6709;&#x914D;&#x7F6E;&#x9879;
+redis 127.0.0.1:6379&gt; config get *
+# &#x8BBE;&#x7F6E;&#x914D;&#x7F6E;&#x9879;
+redis 127.0.0.1:6379&gt; config set loglevel &quot;notice&quot;
+OK
 </code></pre>
-<h4 id="11-redisconf-&#x914D;&#x7F6E;&#x53C2;&#x6570;&#x8BF4;&#x660E;">11. Redis.conf &#x914D;&#x7F6E;&#x53C2;&#x6570;&#x8BF4;&#x660E;</h4>
+<h4 id="10-redisconf-&#x914D;&#x7F6E;&#x53C2;&#x6570;&#x8BF4;&#x660E;">10. Redis.conf &#x914D;&#x7F6E;&#x53C2;&#x6570;&#x8BF4;&#x660E;</h4>
 <table>
 <thead>
 <tr>
 <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
 <th>&#x503C;</th>
-<th>&#x8BF4;&#x660E;                                                                          </th>
+<th>&#x8BF4;&#x660E;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>bind</td>
 <td>127.0.0.1</td>
-<td>&#x7ED1;&#x5B9A;&#x7684;&#x4E3B;&#x673A;&#x5730;&#x5740;                                                                    </td>
+<td>&#x7ED1;&#x5B9A;&#x7684;&#x4E3B;&#x673A;&#x5730;&#x5740;</td>
 </tr>
 <tr>
 <td>timeout</td>
 <td>300</td>
-<td>&#x5BA2;&#x6237;&#x7AEF;&#x95F2;&#x7F6E;&#x591A;&#x4E45;&#x540E;&#x5173;&#x95ED;&#x94FE;&#x63A5;&#xFF0C;0:&#x8868;&#x793A;&#x5173;&#x95ED;&#x8BE5;&#x529F;&#x80FD;                                                     </td>
+<td>&#x5BA2;&#x6237;&#x7AEF;&#x95F2;&#x7F6E;&#x591A;&#x4E45;&#x540E;&#x5173;&#x95ED;&#x94FE;&#x63A5;&#xFF0C;0:&#x8868;&#x793A;&#x5173;&#x95ED;&#x8BE5;&#x529F;&#x80FD;</td>
 </tr>
 <tr>
 <td>loglevel</td>
 <td>debug/verbose/notice/warning</td>
-<td>&#x65E5;&#x5FD7;&#x7EA7;&#x522B;                                                                       </td>
+<td>&#x65E5;&#x5FD7;&#x7EA7;&#x522B; </td>
 </tr>
 <tr>
 <td>database</td>
 <td>10</td>
-<td>&#x6570;&#x636E;&#x5E93;&#x6570;&#x91CF;                                                                      </td>
+<td>&#x6570;&#x636E;&#x5E93;&#x6570;&#x91CF;</td>
 </tr>
 <tr>
 <td>save</td>
-<td>\<seconds\> \<changes\></changes\></seconds\></td>
-<td>save 900 10 &#x8868;&#x793A;&#x6307;&#x5B9A;&#x591A;&#x4E45;&#x5185;&#x6709;&#x591A;&#x5C11;&#x6B21;&#x66F4;&#x65B0;&#x5C31;&#x5C06;&#x6570;&#x636E;&#x540C;&#x6B65;&#x5230;&#x6570;&#x636E;&#x6587;&#x4EF6;                                   </td>
+<td><seconds\> <changes\></changes\></seconds\></td>
+<td>save 900 10 &#x8868;&#x793A;&#x6307;&#x5B9A;&#x591A;&#x4E45;&#x5185;&#x6709;&#x591A;&#x5C11;&#x6B21;&#x66F4;&#x65B0;&#x5C31;&#x5C06;&#x6570;&#x636E;&#x540C;&#x6B65;&#x5230;&#x6570;&#x636E;&#x6587;&#x4EF6;</td>
 </tr>
 <tr>
 <td>slaveof</td>
-<td>\<masterip\> \<masterport\></masterport\></masterip\></td>
+<td><masterip\> <masterport\></masterport\></masterip\></td>
 <td>&#x5F53;&#x672C;&#x673A;&#x4E3A;slaveof&#x65F6;&#xFF0C;&#x8BBE;&#x7F6E;master&#x7684;ip&#x548C;port&#xFF0C;redis&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x81EA;&#x52A8;&#x4ECE;master&#x4E0A;&#x6570;&#x636E;&#x540C;&#x6B65;</td>
 </tr>
 <tr>
 <td>masterauth</td>
-<td>\<master-password\></master-password\></td>
-<td>&#x5982;&#x679C;master&#x8BBE;&#x7F6E;&#x4E86;&#x5BC6;&#x7801;&#xFF0C;slav&#x94FE;&#x63A5;master&#x7684;&#x5BC6;&#x7801;          </td>
+<td><master-password\></master-password\></td>
+<td>&#x5982;&#x679C;master&#x8BBE;&#x7F6E;&#x4E86;&#x5BC6;&#x7801;&#xFF0C;slav&#x94FE;&#x63A5;master&#x7684;&#x5BC6;&#x7801;</td>
 </tr>
 </tbody>
 </table>
@@ -436,7 +449,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Redis-简单配置","level":"1.4","depth":1,"next":{"title":"Redis-通用命令","level":"1.5","depth":1,"path":"docs/04_redis_command.md","ref":"./docs/04_redis_command.md","articles":[]},"previous":{"title":"Redis-安装","level":"1.3","depth":1,"path":"docs/02_redis_install.md","ref":"./docs/02_redis_install.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/03_redis_config.md","mtime":"2018-12-13T02:05:03.292Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-13T02:09:04.132Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Redis-简单配置","level":"1.4","depth":1,"next":{"title":"Redis-通用命令","level":"1.5","depth":1,"path":"docs/04_redis_command.md","ref":"./docs/04_redis_command.md","articles":[]},"previous":{"title":"Redis-安装","level":"1.3","depth":1,"path":"docs/02_redis_install.md","ref":"./docs/02_redis_install.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/03_redis_config.md","mtime":"2018-12-14T04:43:22.958Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-14T04:45:30.567Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
