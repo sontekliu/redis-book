@@ -57,6 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="09_redis_hash.html" />
+    
     
     <link rel="prev" href="07_redis_set.html" />
     
@@ -204,7 +206,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" >
+        <li class="chapter " data-level="1.10" data-path="09_redis_hash.html">
+            
+                <a href="09_redis_hash.html">
+            
+                    
+                    Redis-哈希
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
             
                 <span>
             
@@ -217,7 +232,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11" data-path="../article-index.html">
+        <li class="chapter " data-level="1.12" data-path="../article-index.html">
             
                 <a href="../article-index.html">
             
@@ -231,7 +246,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.11.1" data-path="../Redis-Key-Design.html">
+        <li class="chapter " data-level="1.12.1" data-path="../Redis-Key-Design.html">
             
                 <a href="../Redis-Key-Design.html">
             
@@ -244,7 +259,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2" >
+        <li class="chapter " data-level="1.12.2" >
             
                 <span>
             
@@ -308,7 +323,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="redis-&#x5E38;&#x7528;&#x547D;&#x4EE4;-zset">Redis &#x5E38;&#x7528;&#x547D;&#x4EE4; zset</h1>
-<p>&#x65E2;&#x7136;&#x96C6;&#x5408;&#x662F;&#x65E0;&#x5E8F;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x73B0;&#x5728;&#x53C8;&#x6709;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#xFF0C;&#x6240;&#x4EE5;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x5143;&#x7D20;&#x5FC5;&#x7136;&#x6709;&#x54CD;&#x5E94;&#x7684;&#x6743;&#x91CD;&#xFF0C;&#x6BD4;&#x5982;&#x8EAB;&#x9AD8;&#x3001;&#x4F53;&#x91CD;&#x3001;&#x5E74;&#x9F84;&#x7B49;&#xFF0C;&#x4F46;&#x662F;&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x8BA8;&#x8BBA;&#xFF0C;&#x7EDF;&#x4E00;&#x547D;&#x540D;&#x4E3A; score&#x3002;</p>
+<p>&#x65E2;&#x7136;&#x96C6;&#x5408;&#x662F;&#x65E0;&#x5E8F;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x73B0;&#x5728;&#x53C8;&#x6709;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#xFF0C;&#x6240;&#x4EE5;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x5143;&#x7D20;&#x5FC5;&#x7136;&#x6709;&#x76F8;&#x5E94;&#x7684;&#x6743;&#x91CD;&#xFF0C;&#x6BD4;&#x5982;&#x8EAB;&#x9AD8;&#x3001;&#x4F53;&#x91CD;&#x3001;&#x5E74;&#x9F84;&#x7B49;&#xFF0C;&#x4F46;&#x662F;&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x8BA8;&#x8BBA;&#xFF0C;&#x7EDF;&#x4E00;&#x547D;&#x540D;&#x4E3A; score&#x3002;</p>
 <h4 id="1-zadd-key-score-member-score1-member-">1. zadd KEY score member [score1 member ...]</h4>
 <p>&#x5411;&#x96C6;&#x5408;&#x4E2D;&#x6DFB;&#x52A0;&#x5143;&#x7D20;&#x3002;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x7684;&#x5143;&#x7D20;&#x4F9D;&#x7136;&#x662F;&#x552F;&#x4E00;&#x7684;&#x3002;</p>
 <pre><code class="lang-shell">127.0.0.1:6379&gt; zadd language 10 java 8 python 6 C++ 5 php 4 go 3 nodejs
@@ -346,13 +361,70 @@
 <pre><code class="lang-shell">127.0.0.1:6379&gt;  zcard language
 (integer) 6
 </code></pre>
-<h4 id="6-zrank-key-member">6. zrank KEY member</h4>
+<h4 id="6-zcount-key-min-max">6. zcount KEY min max</h4>
+<p>&#x8FD4;&#x56DE; min ~ max &#x533A;&#x95F4;&#x5185;&#x5143;&#x7D20;&#x7684;&#x6570;&#x91CF;&#x3002;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; zcount language 0 5
+(integer) 3
+</code></pre>
+<h4 id="7-zrank-key-member">7. zrank KEY member</h4>
 <p>&#x7ED9;&#x5B9A;&#x5143;&#x7D20;&#x663E;&#x793A;&#x5BF9;&#x5E94;&#x7684;&#x6392;&#x540D;&#xFF0C;&#x6CE8;&#x610F;&#x662F;&#x4ECE; 0 &#x5F00;&#x59CB;&#xFF0C;&#x9ED8;&#x8BA4;&#x5347;&#x5E8F;&#x3002;<code>zrevrank KEY member</code> &#x964D;&#x5E8F;&#x6392;&#x5217;&#x663E;&#x793A;&#x5BF9;&#x5E94;&#x6392;&#x540D;&#x3002;</p>
 <pre><code class="lang-shell">127.0.0.1:6379&gt;  zrank language go
 (integer) 1
 </code></pre>
-<h4 id="7-zremrangebyrank-key-start-stop">7. zremrangebyrank KEY start stop</h4>
 <h4 id="8-zremrangebyscore-key-min-max">8. zremrangebyscore KEY min max</h4>
+<p>&#x6309;&#x7167; score &#x5220;&#x9664;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x5305;&#x62EC; min &#x548C; max&#x3002;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt;  zremrangebyscore language 0 4
+(integer) 2
+127.0.0.1:6379&gt;  zrange language 0 -1 withscores
+1) &quot;php&quot;
+2) &quot;5&quot;
+3) &quot;C++&quot;
+4) &quot;6&quot;
+5) &quot;python&quot;
+6) &quot;8&quot;
+7) &quot;java&quot;
+8) &quot;9&quot;
+</code></pre>
+<h4 id="9-zremrangebyrank-key-start-stop">9. zremrangebyrank KEY start stop</h4>
+<p>&#x6839;&#x636E;&#x5143;&#x7D20;&#x5728;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x6392;&#x5E8F;&#x6765;&#x5220;&#x9664;&#xFF0C;&#x5305;&#x62EC; start &#x548C; stop&#x3002;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt;  zremrangebyrank language 0 4
+(integer) 4
+127.0.0.1:6379&gt;  zrange language 0 -1 withscores
+(empty list or set)
+</code></pre>
+<h4 id="10-zrem-key-member-member1-member2-">10. zrem KEY member [member1 member2 ...]</h4>
+<p>&#x5220;&#x9664;&#x96C6;&#x5408;&#x5185;&#x6307;&#x5B9A;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x53EF;&#x4EE5;&#x4E00;&#x6B21;&#x5220;&#x9664;&#x591A;&#x4E2A;&#x3002;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt;  zadd language 10 java 8 python 6 C++ 5 php 4 go 3 nodejs
+(integer) 4
+127.0.0.1:6379&gt;  zrem language nodejs php
+(integer) 2
+127.0.0.1:6379&gt;  zrange language 0 -1 withscores
+1) &quot;go&quot;
+2) &quot;4&quot;
+3) &quot;C++&quot;
+4) &quot;6&quot;
+5) &quot;python&quot;
+6) &quot;8&quot;
+7) &quot;java&quot;
+8) &quot;9&quot;
+</code></pre>
+<h4 id="11-zinterstore-destkey-numkeys-key-key--weights-weight-weight--aggregate-summinmax">11. zinterstore destKey numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]</h4>
+<p>&#x53D6;&#x5F97;&#x51E0;&#x4E2A;&#x96C6;&#x5408;&#x7684;&#x4EA4;&#x96C6;&#x5E76;&#x5B58;&#x50A8;&#x5230; destKey &#x96C6;&#x5408;&#x4E2D;&#x3002;&#x6B64;&#x547D;&#x4EE4;&#x6BD4;&#x8F83;&#x957F;&#xFF0C;&#x5206;&#x522B;&#x505A;&#x5982;&#x4E0B;&#x89E3;&#x91CA;&#xFF1A;</p>
+<p><strong>destKey &#xFF1A;</strong> &#x6C42;&#x7684;&#x4EA4;&#x96C6;&#x4E4B;&#x540E;&#x5B58;&#x50A8;&#x7684;&#x76EE;&#x6807;&#x96C6;&#x5408;<br><strong>numkeys &#xFF1A;</strong> &#x8868;&#x793A;&#x6709;&#x591A;&#x4E2A;&#x96C6;&#x5408;&#x8FDB;&#x884C;&#x4EA4;&#x96C6;&#x8FD0;&#x7B97;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E09;&#x4E2A;&#x96C6;&#x5408;&#x505A;&#x4EA4;&#x96C6;&#x8FD0;&#x7B97;&#xFF0C;numkeys &#x5219;&#x7B49;&#x4E8E; 3<br><strong>weights &#xFF1A;</strong> &#x6743;&#x91CD;&#xFF0C;&#x5373;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x5143;&#x7D20; score <em> weight &#xFF0C;weight &#x7684;&#x987A;&#x5E8F;&#x540C;&#x96C6;&#x5408;&#x7684;&#x987A;&#x5E8F;&#x3002;&#x5982;&#xFF1A;<code>zinterstore result 2 key1 key2 weights 2 3</code> &#x5219;&#x8868;&#x793A;&#x96C6;&#x5408; key1 &#x4E2D;&#x5143;&#x7D20; score </em> 2&#xFF0C;&#x96C6;&#x5408; key2 &#x4E2D;&#x7684;&#x5143;&#x7D20; score <em> 3&#x4E4B;&#x540E;&#xFF0C;&#x518D;&#x8FDB;&#x884C;&#x4EA4;&#x96C6;&#x8FD0;&#x7B97;&#xFF0C;&#x5373; result &#x96C6;&#x5408;&#x4E2D;&#x5143;&#x7D20;&#x7684; score &#x7684;&#x503C;&#x5206;&#x522B;&#x4E3A; &#xFF1A;key1_score </em> 2 + key2_score <em> 3&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;&#x6C42;&#x548C;&#x8FD0;&#x7B97;&#x3002;<br><em>*aggregate sum|min|max &#xFF1A;</em></em> &#x8868;&#x793A;&#x96C6;&#x5408;&#x8FDB;&#x884C;&#x5E76;&#x96C6;&#x8FD0;&#x7B97;&#x65F6;&#xFF0C;&#x96C6;&#x5408;&#x5BF9;&#x5E94;&#x5143;&#x7D20; score &#x7684;&#x8BA1;&#x7B97;&#x89C4;&#x5219;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F; sum&#x3002;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; zadd zhangsan 2 cat 3 dog
+(integer) 2
+127.0.0.1:6379&gt; zadd lisi 3 cat 1 dog 4 chicken
+(integer) 3
+127.0.0.1:6379&gt; zinterstore result 2 zhangsan lisi weights 2 3 aggregate max
+(integer) 2
+127.0.0.1:6379&gt; zrange result 0 -1 withscores 
+1) &quot;dog&quot;
+2) &quot;6&quot;
+3) &quot;cat&quot;
+4) &quot;9&quot;
+</code></pre>
+<h4 id="12-zunionstore-destkey-numkeys-key-key--weights-weight-weight--aggregate-summinmax">12. zunionstore destKey numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]</h4>
+<p>&#x540C; 11 &#x7C7B;&#x4F3C;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7; zunionstore &#x662F;&#x6C42;&#x5E76;&#x96C6;&#x3002;</p>
 
                                 
                                 </section>
@@ -380,10 +452,14 @@
 
             
                 
-                <a href="07_redis_set.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Redis-集合命令">
+                <a href="07_redis_set.html" class="navigation navigation-prev " aria-label="Previous page: Redis-集合命令">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="09_redis_hash.html" class="navigation navigation-next " aria-label="Next page: Redis-哈希">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -392,7 +468,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Redis-有序集合","level":"1.9","depth":1,"next":{"title":"未完待续...","level":"1.10","depth":1,"ref":"","articles":[]},"previous":{"title":"Redis-集合命令","level":"1.8","depth":1,"path":"docs/07_redis_set.md","ref":"./docs/07_redis_set.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/08_redis_order_set.md","mtime":"2018-12-14T04:43:56.731Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-14T04:45:30.567Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Redis-有序集合","level":"1.9","depth":1,"next":{"title":"Redis-哈希","level":"1.10","depth":1,"path":"docs/09_redis_hash.md","ref":"./docs/09_redis_hash.md","articles":[]},"previous":{"title":"Redis-集合命令","level":"1.8","depth":1,"path":"docs/07_redis_set.md","ref":"./docs/07_redis_set.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/08_redis_order_set.md","mtime":"2018-12-15T15:51:53.054Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-15T16:28:50.856Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

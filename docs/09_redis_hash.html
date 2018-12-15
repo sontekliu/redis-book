@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Redis-安装 · GitBook</title>
+        <title>Redis-哈希 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="03_redis_config.html" />
     
-    
-    <link rel="prev" href="01_redis_intro.html" />
+    <link rel="prev" href="08_redis_order_set.html" />
     
 
     </head>
@@ -115,7 +113,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="02_redis_install.html">
+        <li class="chapter " data-level="1.3" data-path="02_redis_install.html">
             
                 <a href="02_redis_install.html">
             
@@ -206,7 +204,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="09_redis_hash.html">
+        <li class="chapter active" data-level="1.10" data-path="09_redis_hash.html">
             
                 <a href="09_redis_hash.html">
             
@@ -307,7 +305,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Redis-安装</a>
+        <a href=".." >Redis-哈希</a>
     </h1>
 </div>
 
@@ -322,37 +320,71 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="redis-&#x5B89;&#x88C5;">Redis &#x5B89;&#x88C5;</h1>
-<h4 id="1-&#x4E0B;&#x8F7D;redis&#x5B89;&#x88C5;&#x5305;">1. &#x4E0B;&#x8F7D;Redis&#x5B89;&#x88C5;&#x5305;</h4>
-<p>&#x5728; Redis <a href="https://redis.io" target="_blank">&#x5B98;&#x65B9;&#x7F51;&#x7AD9;</a>&#xFF0C;&#x4E0B;&#x8F7D; stable version &#x7248;&#x672C;&#xFF0C;&#x7F16;&#x5199;&#x6B64;&#x6559;&#x7A0B;&#x65F6;&#xFF0C;&#x7A33;&#x5B9A;&#x7248;&#x672C;&#x4E3A; 5.0</p>
-<h4 id="2-&#x5B89;&#x88C5;&#x4E4B;&#x524D;&#x7684;&#x51C6;&#x5907;">2. &#x5B89;&#x88C5;&#x4E4B;&#x524D;&#x7684;&#x51C6;&#x5907;</h4>
-<p>&#x9996;&#x5148;&#x8981;&#x5B89;&#x88C5; tcl, make, gcc </p>
-<pre><code class="lang-shell">$ sudo apt install tcl make gcc
+                                <h1 id="redis-&#x5E38;&#x7528;&#x547D;&#x4EE4;-hash">Redis &#x5E38;&#x7528;&#x547D;&#x4EE4; hash</h1>
+<h4 id="1-hset-key-feild-value">1. hset KEY feild value</h4>
+<p>&#x8BBE;&#x7F6E; KEY &#x4E2D;&#x7684; feild &#x5C5E;&#x6027;&#x503C;&#x4E3A; value</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hset account name zhangsan
+(integer) 1
 </code></pre>
-<h4 id="3-&#x89E3;&#x538B;&#x7F29;&#x5B89;&#x88C5;">3. &#x89E3;&#x538B;&#x7F29;&#x5B89;&#x88C5;</h4>
-<p>&#x4F7F;&#x7528; root &#x8D26;&#x53F7;&#x8FDB;&#x884C;&#x5B89;&#x88C5;&#x3002;</p>
-<pre><code class="lang-shell"># tar -zxvf redis-5.0.0.tar.gz 
-# cd redis-5.0.0
-# make MALLOC=libc     # &#x5B98;&#x7F51;&#x4E0B;&#x8F7D;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#x5C31;&#x5DF2;&#x7ECF;configure&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x76F4;&#x63A5;make
-# make test
-# make install PREFIX=/usr/local/redis  # PREFIX &#x6307;&#x5B9A;&#x5B89;&#x88C5;&#x76EE;&#x5F55;&#xFF0C;&#x6CE8;&#x610F;&#x5927;&#x5199;
+<h4 id="2-hmset-key-feild-value-feild2-value2--feildn-valuen">2. hmset KEY feild value [feild2 value2 ... feildN valueN]</h4>
+<p>&#x8BBE;&#x7F6E; KEY &#x4E2D;&#x5C5E;&#x6027; feild1 ... feildN &#x4E2D;&#x7684;&#x503C;&#x5206;&#x522B;&#x4E3A; value1 ... valueN</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hmset account age 20 address beijing
+OK
 </code></pre>
-<h4 id="4-&#x62F7;&#x8D1D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;">4. &#x62F7;&#x8D1D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h4>
-<p>&#x6267;&#x884C;&#x5B8C;&#x6210;&#x5B89;&#x88C5;&#x4E4B;&#x540E;&#xFF0C;&#x5728; <code>/usr/local</code> &#x4E0B;&#x9762;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x4E86; <code>redis</code> &#x76EE;&#x5F55;&#x3002;&#x5E76;&#x4E14;&#x5728; <code>redis</code> &#x76EE;&#x5F55;&#x4E0B;&#x9762;&#x76EE;&#x524D;&#x53EA;&#x6709; <code>bin</code> &#x76EE;&#x5F55;&#xFF0C;&#x6B64;&#x65F6;&#x9700;&#x8981;&#x521B;&#x5EFA; data(&#x5B58;&#x653E; redis &#x6570;&#x636E;&#x6587;&#x4EF6;)&#x3001;etc&#xFF08;&#x5B58;&#x653E; redis &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF09;&#x3001;log&#xFF08;&#x5B58;&#x653E; redis &#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#xFF09;&#x7B49;&#x76EE;&#x5F55;&#x3002;&#x5177;&#x4F53;&#x64CD;&#x4F5C;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre><code class="lang-shell"># cd /usr/local/redis
-# mkdir data etc log
+<h4 id="3-hget-key-feild">3. hget KEY feild</h4>
+<p>&#x83B7;&#x53D6; KEY &#x4E2D; feild &#x5C5E;&#x6027;&#x7684;&#x503C;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hget account age 
+&quot;20&quot;
 </code></pre>
-<p>&#x521B;&#x5EFA;&#x5B8C;&#x5B89;&#x88C5;&#x76EE;&#x5F55;&#x4E4B;&#x540E;&#xFF0C;&#x5C06; <code>redis</code> &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x590D;&#x5236;&#x5230; <code>/usr/local/redis/etc/</code> &#x76EE;&#x5F55;&#x4E0B;&#x3002;&#x5177;&#x4F53;&#x64CD;&#x4F5C;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre><code class="lang-shell"># cd /usr/local/redis-5.0.0
-# cp redis.conf /usr/local/redis/etc
+<h4 id="4-hmget-key-feild--feildn">4. hmget KEY feild ... feildN</h4>
+<p>&#x83B7;&#x53D6; KEY &#x4E2D;&#x591A;&#x4E2A; feild &#x5C5E;&#x6027;&#x7684;&#x503C;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hmget account name age
+1) &quot;zhangsan&quot;
+2) &quot;20&quot;
 </code></pre>
-<h4 id="5-&#x542F;&#x52A8;-redis-&#x670D;&#x52A1;">5. &#x542F;&#x52A8; Redis &#x670D;&#x52A1;</h4>
-<pre><code class="lang-shell"># cd /usr/local/redis/bin
-# ./redis-server /usr/local/redis/etc/redis.conf
+<h4 id="5-hgetall-key">5. hgetall KEY</h4>
+<p>&#x83B7;&#x53D6; KEY &#x4E2D;&#x6240;&#x6709;&#x7684;&#x5C5E;&#x6027;&#x548C;&#x503C;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hmget account name age
+1) &quot;name&quot;
+2) &quot;zhangsan&quot;
+3) &quot;age&quot;
+4) &quot;20&quot;
+5) &quot;address&quot;
+6) &quot;beijing&quot;
 </code></pre>
-<h4 id="6-&#x8FDE;&#x63A5;-redis">6. &#x8FDE;&#x63A5; Redis</h4>
-<pre><code class="lang-shell"># cd /usr/local/redis/bin
-# ./redis-cli [-h ip] [-p port] [-a password]
+<h4 id="6-hlen-key">6. hlen KEY</h4>
+<p>&#x8FD4;&#x56DE; KEY &#x4E2D; feild &#x5C5E;&#x6027;&#x7684;&#x4E2A;&#x6570;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hlen account
+(integer) 3
+</code></pre>
+<h4 id="7-hdel-key-feild-feild--feildn">7. hdel KEY feild [feild ... feildN]</h4>
+<p>&#x5220;&#x9664; KEY &#x4E2D;&#x7684; feild &#x5C5E;&#x6027;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hdel account age
+(integer) 1
+</code></pre>
+<h4 id="8-hexists-key-feild">8. hexists KEY feild</h4>
+<p>&#x5224;&#x65AD; KEY &#x4E2D;&#x662F;&#x5426;&#x5B58;&#x5728; feild &#x5C5E;&#x6027;&#xFF0C;&#x5B58;&#x5728;&#x8FD4;&#x56DE; 1 &#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE; 0</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hexists account age
+(integer) 0
+127.0.0.1:6379&gt; hexists account name
+(integer) 1
+</code></pre>
+<h4 id="9-hkeys-key">9. hkeys KEY</h4>
+<p>&#x8FD4;&#x56DE; KEY &#x4E2D; &#x6240;&#x6709;&#x7684; feild </p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hkeys account
+1) &quot;name&quot;
+2) &quot;address&quot;
+</code></pre>
+<h4 id="10-hvals-key">10. hvals KEY</h4>
+<p>&#x8FD4;&#x56DE; KEY &#x4E2D; &#x6240;&#x6709;&#x7684; feild &#x5BF9;&#x5E94;&#x7684; value</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hvals account
+1) &quot;zhangsan&quot;
+2) &quot;beijing&quot;
+</code></pre>
+<h4 id="11-hstrlen-key-feild">11. hstrlen KEY feild</h4>
+<p>&#x8FD4;&#x56DE; KEY &#x4E2D;&#x5BF9;&#x5E94; feild &#x5C5E;&#x6027;&#x7684;&#x957F;&#x5EA6;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hstrlen account name
+(integer) 8
 </code></pre>
 
                                 
@@ -381,14 +413,10 @@
 
             
                 
-                <a href="01_redis_intro.html" class="navigation navigation-prev " aria-label="Previous page: 简介">
+                <a href="08_redis_order_set.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Redis-有序集合">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="03_redis_config.html" class="navigation navigation-next " aria-label="Next page: Redis-简单配置">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -397,7 +425,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Redis-安装","level":"1.3","depth":1,"next":{"title":"Redis-简单配置","level":"1.4","depth":1,"path":"docs/03_redis_config.md","ref":"./docs/03_redis_config.md","articles":[]},"previous":{"title":"简介","level":"1.2","depth":1,"path":"docs/01_redis_intro.md","ref":"./docs/01_redis_intro.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/02_redis_install.md","mtime":"2018-12-15T14:24:17.503Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-15T16:28:50.856Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Redis-哈希","level":"1.10","depth":1,"next":{"title":"未完待续...","level":"1.11","depth":1,"ref":"","articles":[]},"previous":{"title":"Redis-有序集合","level":"1.9","depth":1,"path":"docs/08_redis_order_set.md","ref":"./docs/08_redis_order_set.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/09_redis_hash.md","mtime":"2018-12-15T16:27:31.473Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-15T16:28:50.856Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
