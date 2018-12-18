@@ -11,7 +11,7 @@ xx : 表示 key 存在时，执行操作
 ```shell
 127.0.0.1:6379> set name sontek ex 10 nx
 127.0.0.1:6379> set name sontek ex 10 xx
-127.0.0.1:6379> set name sontek px 9000 ex
+127.0.0.1:6379> set name sontek px 9000 xx
 ```
 
 #### 2. mset、mget 命令
