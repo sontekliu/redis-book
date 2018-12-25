@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Redis-通用命令 · GitBook</title>
+        <title>Redis-哈希 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="05_redis_string.html" />
+    <link rel="next" href="10_redis_transaction.html" />
     
     
-    <link rel="prev" href="03_redis_config.html" />
+    <link rel="prev" href="08_redis_order_set.html" />
     
 
     </head>
@@ -141,7 +141,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5" data-path="04_redis_command.html">
+        <li class="chapter " data-level="1.5" data-path="04_redis_command.html">
             
                 <a href="04_redis_command.html">
             
@@ -206,7 +206,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="09_redis_hash.html">
+        <li class="chapter active" data-level="1.10" data-path="09_redis_hash.html">
             
                 <a href="09_redis_hash.html">
             
@@ -320,7 +320,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Redis-通用命令</a>
+        <a href=".." >Redis-哈希</a>
     </h1>
 </div>
 
@@ -335,97 +335,72 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="redis-&#x5E38;&#x7528;&#x547D;&#x4EE4;">Redis &#x5E38;&#x7528;&#x547D;&#x4EE4;</h1>
-<h4 id="1-&#x901A;&#x7528;&#x547D;&#x4EE4;">1. &#x901A;&#x7528;&#x547D;&#x4EE4;</h4>
-<table>
-<thead>
-<tr>
-<th>&#x5E8F;&#x53F7;</th>
-<th>&#x547D;&#x4EE4;</th>
-<th>&#x63CF;&#x8FF0;</th>
-<th>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>keys [pattern]</td>
-<td>&#x5217;&#x51FA;&#x7CFB;&#x7EDF;&#x4E2D;&#x6240;&#x6709;&#x7684; key</td>
-<td>O(n)</td>
-</tr>
-<tr>
-<td>2</td>
-<td>dbsize</td>
-<td>Redis &#x7CFB;&#x7EDF;&#x6240;&#x6709; key &#x7684;&#x4E2A;&#x6570;</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>3</td>
-<td>exists key</td>
-<td>Redis &#x7CFB;&#x7EDF;&#x662F;&#x5426;&#x5B58;&#x5728;&#x8BE5; key&#xFF0C;&#x5B58;&#x5728;&#x8FD4;&#x56DE;1&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE;0</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>4</td>
-<td>del key...</td>
-<td>&#x5220;&#x9664; Redis &#x4E2D;&#x7684; key&#xFF0C;&#x5220;&#x9664;&#x4E0D;&#x5B58;&#x5728;&#x7684;key&#x8FD4;&#x56DE;0&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE;key&#x4E2A;&#x6570;</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>5</td>
-<td>expire key seconds</td>
-<td>&#x8BBE;&#x7F6E; key &#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;&#x5355;&#x4F4D;&#x662F;&#x79D2;&#xFF0C;pexpire &#x5355;&#x4F4D;&#x662F;&#x6BEB;&#x79D2;</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>6</td>
-<td>ttl key</td>
-<td>&#x663E;&#x793A; key &#x5269;&#x4F59;&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;&#x8FD4;&#x56DE; -1 &#x8868;&#x793A;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;-2&#x8868;&#x793A;key&#x5DF2;&#x5220;&#x9664;&#xFF0C;pttl&#xFF0C;&#x5355;&#x4F4D;&#x662F;&#x6BEB;&#x79D2;</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>7</td>
-<td>persist key</td>
-<td>&#x53BB;&#x6389; key &#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>8</td>
-<td>type key</td>
-<td>&#x67E5;&#x770B; key &#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>9</td>
-<td>randomkey</td>
-<td>&#x968F;&#x673A;&#x8FD4;&#x56DE;&#x7CFB;&#x7EDF;&#x4E2D;&#x5B58;&#x5728;&#x7684;key</td>
-<td></td>
-</tr>
-<tr>
-<td>10</td>
-<td>rename key1 newKey</td>
-<td>&#x7ED9; key &#x91CD;&#x547D;&#x540D;</td>
-<td></td>
-</tr>
-<tr>
-<td>11</td>
-<td>renamenx key1 newKey</td>
-<td>&#x7ED9; key &#x91CD;&#x547D;&#x540D;&#xFF0C;&#x5982;&#x679C;newKey&#x5DF2;&#x5B58;&#x5728;&#x5219;&#x91CD;&#x547D;&#x540D;&#x5931;&#x8D25;&#xFF0C;&#x8FD4;&#x56DE;0&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE;1</td>
-<td></td>
-</tr>
-<tr>
-<td>12</td>
-<td>move key DBNO</td>
-<td>&#x5C06;&#x6307;&#x5B9A;&#x7684;key&#x79FB;&#x52A8;&#x5230;&#x6307;&#x5B9A;&#x7684;&#x6570;&#x636E;&#x5E93;&#xFF0C;redis&#x9ED8;&#x8BA4;16&#x4E2A;&#x5E93;&#xFF0C;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528; 0&#x53F7;&#x5E93;</td>
-<td></td>
-</tr>
-<tr>
-<td>13</td>
-<td>select DBNO</td>
-<td>&#x4F7F;&#x7528; redis &#x7684;&#x67D0;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E; mysql &#x7684; use dbname</td>
-</tr>
-</tbody>
-</table>
+                                <h1 id="redis-&#x5E38;&#x7528;&#x547D;&#x4EE4;-hash">Redis &#x5E38;&#x7528;&#x547D;&#x4EE4; hash</h1>
+<h4 id="1-hset-key-feild-value">1. hset KEY feild value</h4>
+<p>&#x8BBE;&#x7F6E; KEY &#x4E2D;&#x7684; feild &#x5C5E;&#x6027;&#x503C;&#x4E3A; value</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hset account name zhangsan
+(integer) 1
+</code></pre>
+<h4 id="2-hmset-key-feild-value-feild2-value2--feildn-valuen">2. hmset KEY feild value [feild2 value2 ... feildN valueN]</h4>
+<p>&#x8BBE;&#x7F6E; KEY &#x4E2D;&#x5C5E;&#x6027; feild1 ... feildN &#x4E2D;&#x7684;&#x503C;&#x5206;&#x522B;&#x4E3A; value1 ... valueN</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hmset account age 20 address beijing
+OK
+</code></pre>
+<h4 id="3-hget-key-feild">3. hget KEY feild</h4>
+<p>&#x83B7;&#x53D6; KEY &#x4E2D; feild &#x5C5E;&#x6027;&#x7684;&#x503C;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hget account age 
+&quot;20&quot;
+</code></pre>
+<h4 id="4-hmget-key-feild--feildn">4. hmget KEY feild ... feildN</h4>
+<p>&#x83B7;&#x53D6; KEY &#x4E2D;&#x591A;&#x4E2A; feild &#x5C5E;&#x6027;&#x7684;&#x503C;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hmget account name age
+1) &quot;zhangsan&quot;
+2) &quot;20&quot;
+</code></pre>
+<h4 id="5-hgetall-key">5. hgetall KEY</h4>
+<p>&#x83B7;&#x53D6; KEY &#x4E2D;&#x6240;&#x6709;&#x7684;&#x5C5E;&#x6027;&#x548C;&#x503C;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hmget account name age
+1) &quot;name&quot;
+2) &quot;zhangsan&quot;
+3) &quot;age&quot;
+4) &quot;20&quot;
+5) &quot;address&quot;
+6) &quot;beijing&quot;
+</code></pre>
+<h4 id="6-hlen-key">6. hlen KEY</h4>
+<p>&#x8FD4;&#x56DE; KEY &#x4E2D; feild &#x5C5E;&#x6027;&#x7684;&#x4E2A;&#x6570;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hlen account
+(integer) 3
+</code></pre>
+<h4 id="7-hdel-key-feild-feild--feildn">7. hdel KEY feild [feild ... feildN]</h4>
+<p>&#x5220;&#x9664; KEY &#x4E2D;&#x7684; feild &#x5C5E;&#x6027;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hdel account age
+(integer) 1
+</code></pre>
+<h4 id="8-hexists-key-feild">8. hexists KEY feild</h4>
+<p>&#x5224;&#x65AD; KEY &#x4E2D;&#x662F;&#x5426;&#x5B58;&#x5728; feild &#x5C5E;&#x6027;&#xFF0C;&#x5B58;&#x5728;&#x8FD4;&#x56DE; 1 &#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE; 0</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hexists account age
+(integer) 0
+127.0.0.1:6379&gt; hexists account name
+(integer) 1
+</code></pre>
+<h4 id="9-hkeys-key">9. hkeys KEY</h4>
+<p>&#x8FD4;&#x56DE; KEY &#x4E2D; &#x6240;&#x6709;&#x7684; feild </p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hkeys account
+1) &quot;name&quot;
+2) &quot;address&quot;
+</code></pre>
+<h4 id="10-hvals-key">10. hvals KEY</h4>
+<p>&#x8FD4;&#x56DE; KEY &#x4E2D; &#x6240;&#x6709;&#x7684; feild &#x5BF9;&#x5E94;&#x7684; value</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hvals account
+1) &quot;zhangsan&quot;
+2) &quot;beijing&quot;
+</code></pre>
+<h4 id="11-hstrlen-key-feild">11. hstrlen KEY feild</h4>
+<p>&#x8FD4;&#x56DE; KEY &#x4E2D;&#x5BF9;&#x5E94; feild &#x5C5E;&#x6027;&#x7684;&#x957F;&#x5EA6;</p>
+<pre><code class="lang-shell">127.0.0.1:6379&gt; hstrlen account name
+(integer) 8
+</code></pre>
 
                                 
                                 </section>
@@ -453,12 +428,12 @@
 
             
                 
-                <a href="03_redis_config.html" class="navigation navigation-prev " aria-label="Previous page: Redis-简单配置">
+                <a href="08_redis_order_set.html" class="navigation navigation-prev " aria-label="Previous page: Redis-有序集合">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="05_redis_string.html" class="navigation navigation-next " aria-label="Next page: Redis-字符串命令">
+                <a href="10_redis_transaction.html" class="navigation navigation-next " aria-label="Next page: Redis-事物">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -469,7 +444,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Redis-通用命令","level":"1.5","depth":1,"next":{"title":"Redis-字符串命令","level":"1.6","depth":1,"path":"docs/05_redis_string.md","ref":"./docs/05_redis_string.md","articles":[]},"previous":{"title":"Redis-简单配置","level":"1.4","depth":1,"path":"docs/03_redis_config.md","ref":"./docs/03_redis_config.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/04_redis_command.md","mtime":"2018-12-14T04:45:39.471Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-25T01:23:52.177Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Redis-哈希","level":"1.10","depth":1,"next":{"title":"Redis-事物","level":"1.11","depth":1,"path":"docs/10_redis_transaction.md","ref":"./docs/10_redis_transaction.md","articles":[]},"previous":{"title":"Redis-有序集合","level":"1.9","depth":1,"path":"docs/08_redis_order_set.md","ref":"./docs/08_redis_order_set.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/09_redis_hash.md","mtime":"2018-12-25T01:17:02.686Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-25T01:23:52.177Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
