@@ -336,12 +336,37 @@
                                 <h1 id="redis-&#x4E8B;&#x7269;">Redis &#x4E8B;&#x7269;</h1>
 <h4 id="1-redis-&#x4E8B;&#x7269;-vs-&#x6570;&#x636E;&#x5E93;&#x4E8B;&#x7269;">1. Redis &#x4E8B;&#x7269; vs &#x6570;&#x636E;&#x5E93;&#x4E8B;&#x7269;</h4>
 <p>&#x8BF4;&#x5230; Redis &#x4E8B;&#x7269;&#xFF0C;&#x80AF;&#x5B9A;&#x4F1A;&#x8054;&#x60F3;&#x5230;&#x6570;&#x636E;&#x5E93;&#x7684;&#x4E8B;&#x7269;&#xFF0C;&#x5148;&#x770B;&#x4E00;&#x4E0B;&#x6570;&#x636E;&#x5E93;&#x7684;&#x4E8B;&#x7269;&#x6267;&#x884C;&#x6D41;&#x7A0B;&#x548C; Redis &#x7684;&#x4E8B;&#x7269;&#x6267;&#x884C;&#x6D41;&#x7A0B;&#x7684;&#x5F02;&#x540C;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x4EE5; MySQL &#x4E3A;&#x4F8B;&#x3002;</p>
-<pre><code>   |    MySQL          | Redis 
-</code></pre><p>-------|-------------------|------
-&#x5F00;&#x542F;&#x4E8B;&#x7269;| start transaction | multi 
-&#x6267;&#x884C;&#x8BED;&#x53E5;| &#x666E;&#x901A; SQL &#x8BED;&#x53E5;       | &#x666E;&#x901A;&#x547D;&#x4EE4;
-&#x5931;&#x8D25;&#x60C5;&#x51B5;| rollback &#x56DE;&#x6EDA;      | discard &#x53D6;&#x6D88;
-&#x6210;&#x529F;&#x60C5;&#x51B5;| commit   &#x63D0;&#x4EA4;      | exec  &#x6267;&#x884C;</p>
+<table>
+<thead>
+<tr>
+<th>&#x6B65;&#x9AA4;</th>
+<th>MySQL</th>
+<th>Redis </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x5F00;&#x542F;&#x4E8B;&#x7269;</td>
+<td>start transaction</td>
+<td>multi </td>
+</tr>
+<tr>
+<td>&#x6267;&#x884C;&#x8BED;&#x53E5;</td>
+<td>&#x666E;&#x901A; SQL &#x8BED;&#x53E5;</td>
+<td>&#x666E;&#x901A;&#x547D;&#x4EE4;</td>
+</tr>
+<tr>
+<td>&#x5931;&#x8D25;&#x60C5;&#x51B5;</td>
+<td>rollback &#x56DE;&#x6EDA;</td>
+<td>discard &#x53D6;&#x6D88;</td>
+</tr>
+<tr>
+<td>&#x6210;&#x529F;&#x60C5;&#x51B5;</td>
+<td>commit   &#x63D0;&#x4EA4;</td>
+<td>exec  &#x6267;&#x884C;</td>
+</tr>
+</tbody>
+</table>
 <h4 id="2-redis-&#x4E8B;&#x7269;&#x7684;&#x53EF;&#x9760;&#x6027;">2. Redis &#x4E8B;&#x7269;&#x7684;&#x53EF;&#x9760;&#x6027;</h4>
 <p>&#x6570;&#x636E;&#x5E93;&#x7684;&#x4E8B;&#x7269;&#x5177;&#x6709; ACID &#x56DB;&#x4E2A;&#x7279;&#x6027;&#xFF0C;&#x5373;&#x539F;&#x5B50;&#x6027;&#xFF08;Atomicity&#xFF09;&#x3001;&#x4E00;&#x81F4;&#x6027;&#xFF08;Consistency&#xFF09;&#x3001;&#x9694;&#x79BB;&#x6027;&#xFF08;Isolation&#xFF09;&#x3001;&#x6301;&#x4E45;&#x6027;&#xFF08;Durability&#xFF09;&#x3002;Redis &#x662F;&#x5426;&#x6709;&#x5982;&#x4E0A;&#x7279;&#x6027;&#x5462;&#xFF1F;</p>
 <p>&#x8BF4;&#x5230;&#x4E8B;&#x7269;&#x5F88;&#x591A;&#x90FD;&#x4F1A;&#x62FF;&#x94F6;&#x884C;&#x8F6C;&#x8D26;&#x4E3A;&#x6848;&#x4F8B;&#xFF0C;&#x6B64;&#x5904;&#x4E5F;&#x4E0D;&#x4F8B;&#x5916;&#x3002;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x94F6;&#x884C;&#x8F6C;&#x8D26;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x5373;&#x5F20;&#x4E09;&#xFF08;&#x539F;&#x6709;500&#x5757;&#x94B1;&#xFF09;&#x7ED9;&#x674E;&#x56DB;&#xFF08;&#x76EE;&#x524D;&#x6709;200&#x5757;&#x94B1;&#xFF09;&#x8F6C; 100 &#x5757;&#x94B1;&#x3002;&#x671F;&#x671B;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x679C;&#x662F;&#x8F6C;&#x8D26;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x5F20;&#x4E09; 400&#x5757;&#x94B1;&#xFF0C;&#x674E;&#x56DB; 300 &#x5757;&#x94B1;&#x3002;</p>
@@ -425,7 +450,7 @@ QUEUED
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Redis-事物","level":"1.11","depth":1,"next":{"title":"未完待续...","level":"1.12","depth":1,"ref":"","articles":[]},"previous":{"title":"Redis-哈希","level":"1.10","depth":1,"path":"docs/09_redis_hash.md","ref":"./docs/09_redis_hash.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/10_redis_transaction.md","mtime":"2018-12-25T01:30:25.468Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-25T01:30:29.811Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Redis-事物","level":"1.11","depth":1,"next":{"title":"未完待续...","level":"1.12","depth":1,"ref":"","articles":[]},"previous":{"title":"Redis-哈希","level":"1.10","depth":1,"path":"docs/09_redis_hash.md","ref":"./docs/09_redis_hash.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/10_redis_transaction.md","mtime":"2018-12-25T01:33:29.933Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-25T01:34:08.857Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
