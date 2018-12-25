@@ -130,7 +130,7 @@
 
 **destKey ：** 求的交集之后存储的目标集合    
 **numkeys ：** 表示有多个集合进行交集运算，如果有三个集合做交集运算，numkeys 则等于 3  
-**weights ：** 权重，即集合中的元素 score * weight ，weight 的顺序同集合的顺序。如：`zinterstore result 2 key1 key2 weights 2 3` 则表示集合 key1 中元素 score * 2，集合 key2 中的元素 score * 3之后，再进行交集运算，即 result 集合中元素的 score 的值分别为 ：key1_score * 2 + key2_score * 3，默认是求和运算。   
+**weights ：** 权重，即集合中的元素 score \* weight ，weight 的顺序同集合的顺序。如：`zinterstore result 2 key1 key2 weights 2 3` 则表示集合 key1 中元素 score \* 2，集合 key2 中的元素 score \* 3之后，再进行交集运算，即 result 集合中元素的 score 的值分别为 ：key1_score \* 2 + key2_score \* 3，默认是求和运算。   
 **aggregate sum|min|max ：** 表示集合进行并集运算时，集合对应元素 score 的计算规则，默认是 sum。
 
 ```shell
@@ -152,49 +152,6 @@
 同 11 类似，只不过 zunionstore 是求并集。
 
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

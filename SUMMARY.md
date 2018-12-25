@@ -10,6 +10,7 @@
 * [Redis-集合命令](./docs/07_redis_set.md)
 * [Redis-有序集合](./docs/08_redis_order_set.md)
 * [Redis-哈希](./docs/09_redis_hash.md)
+* [Redis-事物](./docs/10_redis_transaction.md)
 * [未完待续...]()
 * [聊聊 Redis ](article-index.md)
   * [聊聊 Redis 之 Key 的设计技巧](Redis-Key-Design.md)
