@@ -4,12 +4,12 @@
 
 说到 Redis 事物，肯定会联想到数据库的事物，先看一下数据库的事物执行流程和 Redis 的事物执行流程的异同，数据库以 MySQL 为例。
 
-       |    MySQL          | Redis 
+ 步骤  |    MySQL          | Redis 
 -------|-------------------|------
-开启事物| start transaction | multi 
-执行语句| 普通 SQL 语句       | 普通命令
-失败情况| rollback 回滚      | discard 取消
-成功情况| commit   提交      | exec  执行
+开启事物| start transaction| multi 
+执行语句| 普通 SQL 语句    | 普通命令
+失败情况| rollback 回滚    | discard 取消
+成功情况| commit   提交    | exec  执行
 
 #### 2. Redis 事物的可靠性
 
