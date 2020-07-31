@@ -17,7 +17,7 @@
 删除链表中的元素。count 绝对值表示删除元素的个数，当 count > 0 时，从左侧开始删除，count < 0 时从右侧删除。
 
 ```shell
-127.0.0.1:6379> larange chars 0 -1
+127.0.0.1:6379> lrange chars 0 -1
 1) "b"
 2) "c"
 3) "a"
@@ -27,7 +27,7 @@
 7) "a"
 127.0.0.1:6379> lrem chars 2 c
 (integer) 2
-127.0.0.1:6379> larange chars 0 -1
+127.0.0.1:6379> lrange chars 0 -1
 1) "b"
 2) "a"
 3) "d"
@@ -49,7 +49,7 @@
 截取链表中 start 到 end 范围，并返回链表，包含 start 和 end。左侧从 0 开始，右侧从 -1 开始。
 
 ```shell
-127.0.0.1:6379> larange chars 0 -1
+127.0.0.1:6379> lrange chars 0 -1
 1) "b"
 2) "a"
 3) "d"
@@ -57,7 +57,7 @@
 5) "a"
 127.0.0.1:6379> ltrim chars 2 4
 OK
-127.0.0.1:6379> larange chars 0 -1
+127.0.0.1:6379> lrange chars 0 -1
 1) "d"
 2) "b"
 3) "a"
@@ -68,7 +68,7 @@ OK
 返回链表索引位置上的值，如：
 
 ```shell
-127.0.0.1:6379> larange chars 0 -1
+127.0.0.1:6379> lrange chars 0 -1
 1) "d"
 2) "b"
 3) "a"
@@ -81,7 +81,7 @@ OK
 在链表中寻找 searchValue 并在 searchValue 前后插入 newValue，并返回插入 newValue 之后链表的个数。一旦找到 searchValue 之后命令就结束了，因此不会插入多个 newValue；如果找不到 searchValue 则返回 -1，不会插入 newValue。
 
 ```shell
-127.0.0.1:6379> larange chars 0 -1
+127.0.0.1:6379> lrange chars 0 -1
 1) "d"
 2) "b"
 3) "a"
@@ -91,7 +91,7 @@ OK
 (integer) -1
 127.0.0.1:6379> linsert chars before b c
 (integer) 5
-127.0.0.1:6379> larange chars 0 -1
+127.0.0.1:6379> lrange chars 0 -1
 1) "c"
 2) "d"
 3) "c"
@@ -103,7 +103,7 @@ OK
 把链表 source 的尾部拿出，放在 dest 的头部，并返回该单元值。该操作是原子性的。
 
 ```shell
-127.0.0.1:6379> larange chars 0 -1
+127.0.0.1:6379> lrange chars 0 -1
 1) "c"
 2) "d"
 3) "c"
